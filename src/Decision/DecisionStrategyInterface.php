@@ -2,7 +2,7 @@
 
 
 /**
- *  Cookbook\Decision\StrategyInterface  class
+ *  Cookbook\Decision\DecisionStrategyInterface  class
  *
  * PHP version 5.3
  *
@@ -14,7 +14,7 @@
 namespace Cookbook\Decision;
 
  /**
- * StrategyInterface class
+ * DecisionStrategyInterface class
  *
  * 
  *
@@ -24,7 +24,7 @@ namespace Cookbook\Decision;
  * @link     https://bitbucket.org/sydnerdrage/cookbook
  */
 
-interface DecisionInterface
+interface DecisionStrategyInterface
 {
 
     /**

@@ -11,9 +11,10 @@
  *
  */
 
-namespace Cookbook\Decision;
+namespace Cookbook\Decision\Strategy;
 
 use Cookbook\Entity\Ingredient;
+use Cookbook\Decision\DecisionStrategyInterface;
 
  /**
  * ExpiryDateStrategy class
@@ -26,7 +27,7 @@ use Cookbook\Entity\Ingredient;
  * @link     https://bitbucket.org/sydnerdrage/cookbook
  */
 
-class ExpiryDateStrategy implements DecisionInterface
+class ExpiryDateStrategy implements DecisionStrategyInterface
 {
 
     /**

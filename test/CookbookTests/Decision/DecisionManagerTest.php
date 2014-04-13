@@ -15,7 +15,7 @@
 namespace CookbookTest\Decision;
 
 use Cookbook\Decision\DecisionManager;
-use Cookbook\Decision\ExpiryDateStrategy;
+use Cookbook\Decision\Strategy\ExpiryDateStrategy;
 
 use Cookbook\Entity\Ingredient;
 

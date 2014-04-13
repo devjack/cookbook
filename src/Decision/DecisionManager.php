@@ -13,6 +13,8 @@
 
 namespace Cookbook\Decision;
 
+use Cookbook\Decision\DecisionStrategyInterface;
+
 /**
  * DecisionManager class
  *
@@ -29,7 +31,7 @@ class DecisionManager
 
     protected $strategies = array();
 
-    public function addStrategy($name, DecisionInterface $strategy)
+    public function addStrategy($name, DecisionStrategyInterface $strategy)
     {
         $this->strategies[$name] = $strategy;
     }
