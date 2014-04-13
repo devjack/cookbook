@@ -16,6 +16,7 @@ namespace CookbookTest;
 
 use Cookbook\Cookbook;
 use CookbookMocks\Factory\MockFactory;
+use Cookbook\Model\Fridge;
 
 /**
  * CookbookTest class
@@ -35,7 +36,7 @@ class CookbookTest extends \PHPUnit_Framework_TestCase {
      * Ingredients as provied by the specification
      */
     public function testSpecSample1() {
-        $fridge = array (
+        $ingredients = array (
             MockFactory::createIngredient(array(
                 'item' => 'bread',
                 'amount' => 10,
@@ -64,7 +65,7 @@ class CookbookTest extends \PHPUnit_Framework_TestCase {
                 'item' => 'mixed salad',
                 'amount' => 500,
                 'unit' => 'grams',
-                'expiry' => '26/12/2014'
+                'expiry' => '26/12/2013'
             )),
         );
 
@@ -106,12 +107,20 @@ class CookbookTest extends \PHPUnit_Framework_TestCase {
         );
 
         $cookbook = new Cookbook();
-        $cookbook->setIngredients($fridge);
+        $cookbook->setIngredients($ingredients);
         $cookbook->setRecipes($recipes);
 
-        $decision = $cookbook->chooseOptimalRecipe();
+        $fridge = new Fridge();
+        $fridge->setIngredients($cookbook->getIngredients());
+        $cookbook->setFridge($fridge);
 
-        $this->assertEquals('salad sandwich', $decision->getName());
+        $recipe = $cookbook->chooseOptimalRecipe();
+
+        $this->assertNotNull($recipe, "Cookbook returned no valid recipes.");
+
+        if(!is_null($recipe)) {
+            $this->assertEquals('salad sandwich', $recipe->getName());
+        }
     }
 }
 
