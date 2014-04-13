@@ -58,7 +58,7 @@ class CookbookTest extends \PHPUnit_Framework_TestCase {
         $this->assertNotNull($recipe, "Cookbook returned no valid recipes.");
 
         if(!is_null($recipe)) {
-            $this->assertEquals('salad sandwich', $recipe->getName());
+            $this->assertEquals('grilled cheese on toast', $recipe->getName());
         }
     }
 }

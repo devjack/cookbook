@@ -82,7 +82,7 @@ class MockData
         return array(
             MockFactory::createRecipe(
                 array(
-                    'name' => 'grilled chease on toast',
+                    'name' => 'grilled cheese on toast',
                     'ingredients' => array(
                         array(
                             'item' => 'bread',
