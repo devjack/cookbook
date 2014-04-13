@@ -39,7 +39,7 @@ class Recipe
     }
 
     /**
-     * @return null
+     * @return Food[]
      */
     public function getIngredients()
     {
