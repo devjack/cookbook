@@ -29,15 +29,15 @@ class Ingredient extends Food
     protected $useBy = null;
 
     /**
-     * @param null $useBy
+     * @param \DateTime $useBy
      */
-    public function setUseBy($useBy)
+    public function setUseBy(\DateTime $useBy)
     {
         $this->useBy = $useBy;
     }
 
     /**
-     * @return null
+     * @return \DateTime
      */
     public function getUseBy()
     {
