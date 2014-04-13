@@ -1,4 +1,5 @@
 {
+    "name": "sydnerdrage/cookbook",
     "description": "Cookbook is a simple module for determining the optimal usage of ingredients in your fridge.",
     "keywords": ["fridge", "recipe", "cooking"],
     "type": "library",
