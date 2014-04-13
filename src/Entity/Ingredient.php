@@ -13,7 +13,7 @@
 namespace Cookbook\Entity;
 
 /**
- * Recipt class
+ * Recipe class
  *
  *
  *
