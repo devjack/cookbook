@@ -3,12 +3,12 @@
 <phpunit
     bootstrap="../../vendor/autoload.php"
     verbose="true"
-    stopOnFailure="true"
+    stopOnFailure="false"
     colors="true">
 
     <testsuites>
         <testsuite name="Cookbook Unit Tests">
-            <directory>../CookbookTests</directory>
+            <directory>../CookbookTests/</directory>
         </testsuite>
     </testsuites>
 
