@@ -26,7 +26,7 @@ use CookbookMocks\MockData;
  * @package  Cookbook
  * @author   Jack Skinner <sydnerdrage@gmail.com>
  * @license  MIT http://opensource.org/licenses/MIT
- * @link     https://bitbucket.org/sydnerdrage/recipefinder
+ * @link     https://bitbucket.org/sydnerdrage/cookbook
  */
 
 class FridgeTest extends \PHPUnit_Framework_TestCase {
