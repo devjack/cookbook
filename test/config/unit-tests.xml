@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit
+    bootstrap="../../vendor/autoload.php"
+    verbose="true"
+    stopOnFailure="true"
+    colors="true">
+
+    <testsuites>
+        <testsuite name="Cookbook Unit Tests">
+            <directory>../CookbookTests</directory>
+        </testsuite>
+    </testsuites>
+
+    <logging>
+        <log type="coverage-clover" target="../../build/logs/clover.xml"></log>
+    </logging>
+</phpunit>
