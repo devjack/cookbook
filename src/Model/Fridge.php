@@ -37,6 +37,7 @@ class Fridge
      * @param Ingredient[] $ingredients
      */
     public function setIngredients(array $ingredients) {
+        $this->ingredients = array(); // it's no longer null, but might have no food.
         /** @var Ingredient $ingredient*/
         foreach($ingredients as $ingredient) {
             $this->ingredients[$ingredient->getItem()] = $ingredient;
@@ -65,6 +66,16 @@ class Fridge
 
         // Return if we have enough.
         return $ingredient->getAmount() >= $item->getAmount();
+    }
+
+    /**
+     * @param string $name
+     * @return Ingredient
+     */
+    public function getIngredientByName($name) {
+        if(array_key_exists($name, $this->ingredients)) {
+            return $this->ingredients[$name];
+        }
     }
 
 }

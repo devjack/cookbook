@@ -16,6 +16,7 @@ namespace Cookbook;
 use Cookbook\Entity\Recipe;
 use Cookbook\Entity\Ingredient;
 use Cookbook\Model\Fridge;
+use Cookbook\Decision\DecisionManager;
 
 /**
  * Cookbook class
@@ -30,10 +31,25 @@ use Cookbook\Model\Fridge;
 
 class Cookbook
 {
+    /**
+     * @var Ingredient[]
+     */
     protected $ingredients = null;
+
+    /**
+     * @var Recipe[]
+     */
     protected $recipes = null;
 
+    /**
+     * @var Fridge
+     */
     protected $fridge = null;
+
+    /**
+     * @var DecisionManager
+     */
+    protected $decisionManager = null;
 
     /**
      * @param array $ingredients
@@ -91,6 +107,26 @@ class Cookbook
         return $this->fridge;
     }
 
+    /**
+     * @param DecisionManager $decisionManager
+     */
+    public function setDecisionManager(DecisionManager $decisionManager)
+    {
+        $this->decisionManager = $decisionManager;
+    }
+
+    /**
+     * @return DecisionManager
+     */
+    public function getDecisionManager()
+    {
+        if(is_null($this->decisionManager)) {
+            throw new \LogicException("Decision Manager must be configured");
+        }
+        return $this->decisionManager;
+    }
+
+
 
 
 
@@ -114,11 +150,73 @@ class Cookbook
         if($countPossibleRecipes > 1) {
             // more than one possible recipe
 
+            // Convert the recipe into an array of recipe-name => Ingredient[]
+            $recipeChoices = $this->convertRecipiesToIngredientArrays($possibleRecipes);
+
+            return $this->chooseRecipeWithStrategies($possibleRecipes);
+
         } else if($countPossibleRecipes == 1) {
             return array_pop($possibleRecipes);
         }
 
         return null;
+    }
+
+    protected function convertRecipiesToIngredientArrays(array $recipes) {
+
+        $ingredientArray = array();
+
+        $fridge = $this->getFridge();
+
+        /** @var Recipe $recipe */
+
+        foreach($recipes as $recipe) {
+            $items = array();
+            foreach($recipe->getIngredients() as $ingredient) {
+                $items[] = $fridge->getIngredientByName($ingredient->getItem());
+            }
+            $ingredientArray[$recipe->getName()] = $items;
+        }
+
+        return $ingredientArray;
+    }
+
+    /**
+     * @param Recipe[] $recipes
+     * @return Recipe;
+     */
+    protected function chooseRecipeWithStrategies(array $recipes) {
+
+        $dm = $this->getDecisionManager();
+
+        /**
+         * Contains an array of recipe-name => Food[] to choose from
+         */
+        $selection = array ();
+
+        $fridge = $this->getFridge();
+
+        // Populate $selection
+        foreach($recipes as $recipe) {
+            // Get the food out of the fridge for each item.
+            $food = array();
+            foreach($recipe->getIngredients() as $ingredient) {
+                $food[] = $fridge->getIngredientByName($ingredient->getItem());
+            }
+            $selection[$recipe->getName()] = $food;
+        }
+
+
+        $bestRecipeName = $dm->choose($selection);
+
+        foreach($recipes as $recipe) {
+            if($recipe->getName() === $bestRecipeName) {
+                return $recipe;
+            }
+        }
+
+        // If we reach here, the decision manager returned a recipe that wasn't provided to it!
+        throw new \LogicException("Recipe chosen was invalid.");
     }
 
     /**
